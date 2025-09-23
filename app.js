@@ -1,7 +1,19 @@
+const fs = require('fs');
+const path = require('path');
+
+// Verificar si existe el archivo .env
+const envPath = path.resolve(__dirname, '.env');
+if (!fs.existsSync(envPath)) {
+  console.error('⚠️  Warning: .env file not found! Call at administrator.');
+} else {
+  console.log('.env file loaded successfully.');
+}
+
+// Cargar variables de entorno
 require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const exphbs = require('express-handlebars');
 
 
