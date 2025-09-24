@@ -18,6 +18,7 @@ const exphbs = require('express-handlebars');
 
 
 const applicantRoutes = require('./routes/applicants');
+const indexRoutes = require('./routes/index');
 const { connectToDb } = require('./db');
 
 
@@ -50,4 +51,4 @@ process.exit(1);
 
 // Routes
 app.use('/api/applicants', applicantRoutes);
-app.get('/', (req, res) => res.render('home'));
+app.use('/', indexRoutes);
