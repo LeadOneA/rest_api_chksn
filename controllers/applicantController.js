@@ -87,6 +87,8 @@ async function addApplicant(req, res) {
     res.status(201).json({ message: 'Applicant added successfully'});
   } catch (err) {
     console.error('Error INSERT APPLICANT:', err);
+    //INSIDE THE DATABASE EXIST TRIGGER
+    //WHERE IS THROW CUSTOM ERRORS FROM DATABASE
     let errorMessage = 'Error Unknow (applicant)';
     if (err.precedingErrors && err.precedingErrors.length > 0) {
       errorMessage = err.precedingErrors.map(e => e.message).join(' | ');

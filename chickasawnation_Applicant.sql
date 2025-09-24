@@ -196,6 +196,19 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
+    -- VALIDATE IF EXIST THE COMBINATION BETWEEN OTVTAR_CountyCode AND OTVTAR_CountyName
+    IF EXISTS (
+        SELECT 1
+        FROM TAR00201_TAR_Applicant_MSTR
+        WHERE OTVTAR_Program_ID = @OTVTAR_Program_ID
+          AND OTVTAR_Applicant_ID = @OTVTAR_Applicant_ID
+    )
+    BEGIN
+        RAISERROR('A record with the same Program_ID and Applicant_ID already exists.', 16, 1);
+        RETURN;
+    END;
+
+    --INSERT NEW RECORD
     INSERT INTO TAR00201_TAR_Applicant_MSTR (
         DEX_ROW_ID,
         OTVTAR_Eligibility_Code, OTVTAR_Program_ID, OTVTAR_Applicant_ID,

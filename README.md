@@ -52,3 +52,4 @@ http://localhost:3000/
 
 to make the POST here is the fake data
 utlis > post_applicant.json
+POST - http://localhost:3000/api/applicants
