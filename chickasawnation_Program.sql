@@ -11,7 +11,7 @@ GO
 CREATE UNIQUE INDEX UX_TAR_Program_MSTR_ID_Descripti
 ON TAR00100_TAR_Program_MSTR (OTVTAR_Program_ID, OTVTAR_Program_Descripti);
 GO
-
+--CREATE STORE PROCEDURE TO INSERT DATA
 CREATE PROCEDURE sp_Insert_TAR_Program
     @OTVTAR_Program_ID CHAR(15),
     @OTVTAR_Program_Descripti CHAR(31),
@@ -24,7 +24,6 @@ BEGIN
         SELECT 1
         FROM TAR00100_TAR_Program_MSTR
         WHERE OTVTAR_Program_ID = @OTVTAR_Program_ID
-          AND OTVTAR_Program_Descripti = @OTVTAR_Program_Descripti
     )
     BEGIN
         INSERT INTO TAR00100_TAR_Program_MSTR (OTVTAR_Program_ID, OTVTAR_Program_Descripti, DEX_ROW_ID)
@@ -32,12 +31,13 @@ BEGIN
     END
     ELSE
     BEGIN
-        RAISERROR ('A record with this Program Id or Program-Description combination already exists.', 16, 1);
+        RAISERROR ('A record with this Program Id already exists.', 16, 1);
         RETURN;
     END
 END;
 GO
 
+--CREATE STORE PROCEDURE TO SEARCH DATA
 CREATE PROCEDURE sp_Select_TAR_Program
     @OTVTAR_Program_ID CHAR(15),
     @OTVTAR_Program_Descripti CHAR(11)

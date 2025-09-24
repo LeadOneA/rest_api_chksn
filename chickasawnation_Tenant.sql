@@ -599,7 +599,7 @@ BEGIN
     SET NOCOUNT ON;
 
     SELECT *
-    FROM TAR00201_TAR_Applicant_MSTR
+    FROM TAR00300_TAR_Tenant_MSTR
     WHERE OTVTAR_Program_ID = @OTVTAR_Program_ID
        OR OTVTAR_Tenant_ID = @OTVTAR_Tenant_ID;
 END;
