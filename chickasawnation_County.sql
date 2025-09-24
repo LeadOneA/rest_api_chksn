@@ -32,10 +32,9 @@ BEGIN
         SELECT 1 
         FROM TAR40100_TAR_County_MSTR
         WHERE OTVTAR_CountyCode = @OTVTAR_CountyCode
-           OR (OTVTAR_CountyCode = @OTVTAR_CountyCode AND OTVTAR_CountyName = @OTVTAR_CountyName)
     )
     BEGIN
-        RAISERROR ('A record with this County Code or Code-Name combination already exists.', 16, 1);
+        RAISERROR ('A record with this County Code already exists.', 16, 1);
         RETURN;
     END;
 
