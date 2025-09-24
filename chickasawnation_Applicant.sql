@@ -191,7 +191,8 @@ CREATE PROCEDURE sp_Insert_TAR_Applicant
     @OTVTAR_Total_Assets INT,
     @OTVTAR_Previous_Aid TINYINT,
     @OTVTAR_Removal_Code SMALLINT,
-    @OTVTAR_Removal_Date DATETIME
+    @OTVTAR_Removal_Date DATETIME,
+    @DEX_ROW_ID INT
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -235,7 +236,7 @@ BEGIN
         OTVTAR_Empr_ZipCode, OTVTAR_Empr_Telephone,
         OTVTAR_Housing_Code, OTVTAR_Housing_Cost, OTVTAR_Priority_Code,
         OTVTAR_Credit_Verified, OTVTAR_Total_Assets, OTVTAR_Previous_Aid,
-        OTVTAR_Removal_Code, OTVTAR_Removal_Date
+        OTVTAR_Removal_Code, OTVTAR_Removal_Date, DEX_ROW_ID
     )
     VALUES (
         @DEX_ROW_ID,
@@ -263,7 +264,7 @@ BEGIN
         @OTVTAR_Empr_ZipCode, @OTVTAR_Empr_Telephone,
         @OTVTAR_Housing_Code, @OTVTAR_Housing_Cost, @OTVTAR_Priority_Code,
         @OTVTAR_Credit_Verified, @OTVTAR_Total_Assets, @OTVTAR_Previous_Aid,
-        @OTVTAR_Removal_Code, @OTVTAR_Removal_Date
+        @OTVTAR_Removal_Code, @OTVTAR_Removal_Date, @DEX_ROW_ID
     );
 END;
 GO
