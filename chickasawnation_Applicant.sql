@@ -314,17 +314,18 @@ BEGIN
 END;
 GO
 
---MASK
---ALTER TABLE TAR00201_TAR_Applicant_MSTR
---ALTER COLUMN OTVTAR_Cur_Telephone ADD MASKED WITH (FUNCTION = 'partial(0,"XXXX",4)');
+use chickasawnation;
+GO
+CREATE PROCEDURE sp_Select_TAR_Applicant
+    @OTVTAR_Program_ID CHAR(15),
+    @OTVTAR_Applicant_ID CHAR(11)
+AS
+BEGIN
+    SET NOCOUNT ON;
 
---REMOVE PERMISSION UNMASK
---REVOKE UNMASK TO apiCNIQ;
-
---USE chickasawnation
---GO
---SELECT OTVTAR_Cur_Telephone FROM TAR00201_TAR_Applicant_MSTR;
---GO
---SELECT SYSTEM_USER, USER_NAME();
-
---DELETE FROM TAR00201_TAR_Applicant_MSTR
+    SELECT *
+    FROM TAR00201_TAR_Applicant_MSTR
+    WHERE OTVTAR_Program_ID = @OTVTAR_Program_ID
+       OR OTVTAR_Applicant_ID = @OTVTAR_Applicant_ID;
+END;
+GO

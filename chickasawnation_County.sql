@@ -52,3 +52,17 @@ BEGIN
     );
 END;
 GO
+
+CREATE PROCEDURE sp_Select_TAR_County
+    @OTVTAR_CountyCode CHAR(15),
+    @OTVTAR_CountyName CHAR(11)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT *
+    FROM TAR40100_TAR_County_MSTR
+    WHERE OTVTAR_CountyCode = @OTVTAR_CountyCode
+       OR OTVTAR_CountyName = @OTVTAR_CountyName;
+END;
+GO
