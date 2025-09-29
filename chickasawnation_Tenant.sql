@@ -70,8 +70,8 @@ CREATE TABLE TAR00300_TAR_Tenant_MSTR (
     OTVTAR_Rent_Amount        INT,
     OTVTAR_Number_Incomes     SMALLINT,
     OTVTAR_Income_From_Asset  INT,
-    OTVTAR_Qualify_Low_Incom  INT,
-    OTVTAR_Qualify_VeryLow_I  INT,
+    OTVTAR_Qualify_Low_Income  INT,
+    OTVTAR_Qualify_VeryLow_Income  INT,
     OTVTAR_Low_Income_Code    TINYINT,
     OTVTAR_VeryLow_Income_Co  TINYINT,
     OTVTAR_MedAllowance_Amt   INT,
@@ -141,7 +141,7 @@ CREATE TABLE TAR00300_TAR_Tenant_MSTR (
     CONSTRAINT PK_TAR_Tenant_MSTR PRIMARY KEY CLUSTERED (OTVTAR_Program_ID, OTVTAR_Tenant_ID)
 );
 
--- Crear índice único adicional
+-- CREATE INDEX UNIQUE
 CREATE UNIQUE INDEX UX_TAR_Tenant_MSTR_Unique
 ON TAR00300_TAR_Tenant_MSTR (OTVTAR_Program_ID, OTVTAR_Tenant_ID, OTVTAR_App_Last_Name, OTVTAR_App_First_Name, OTVTAR_App_Middle_Name);
 GO
@@ -165,7 +165,7 @@ GO
 -- INDEX NOT CLUSTERED
 CREATE NONCLUSTERED INDEX IX_TAR00201_App_Last_Name
 ON TAR00300_TAR_Tenant_MSTR (OTVTAR_App_Last_Name);
-
+GO
 
 CREATE PROCEDURE sp_Insert_TAR_Tenant
 (
@@ -243,13 +243,13 @@ CREATE PROCEDURE sp_Insert_TAR_Tenant
     @OTVTAR_Qualify_Low_Income INT,
     @OTVTAR_Qualify_VeryLow_Income INT,
     @OTVTAR_Low_Income_Code TINYINT,
-    @OTVTAR_VeryLow_Income_Code TINYINT,
+    @OTVTAR_VeryLow_Income_Co TINYINT,
     @OTVTAR_MedAllowance_Amt INT,
     @OTVTAR_TotalAllow_Amt INT,
     @OTVTAR_Gross_Rent INT,
     @OTVTAR_GrossRent_Cont INT,
     @OTVTAR_HAP_Amt INT,
-    @OTVTAR_UtilitiesAllow_Amt INT,
+    @OTVTAR_UtilitiesAllow_Am INT,
     @OTVTAR_Net_Rent_Cont INT,
     @OTVTAR_Cerficate_Number SMALLINT,
     @OTVTAR_Movein_Date DATETIME,
@@ -313,7 +313,6 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Validación: no duplicar combinación de llaves primarias
     IF EXISTS (
         SELECT 1
         FROM TAR00300_TAR_Tenant_MSTR
@@ -325,7 +324,6 @@ BEGIN
         RETURN;
     END;
 
-    -- Insertar registro
     INSERT INTO TAR00300_TAR_Tenant_MSTR
     (
         OTVTAR_Tenant_Status,
@@ -368,7 +366,7 @@ BEGIN
         OTVTAR_Wages,
         OTVTAR_Benefits_SS,
         OTVTAR_Benefits_SSI,
-        OTVTAR_Benefits_VA ,
+        OTVTAR_Benefits_VA,
         OTVTAR_Benefits_Other,
         OTVTAR_Welfare_AFDC,
         OTVTAR_Welfare_OAA,
@@ -399,8 +397,8 @@ BEGIN
         OTVTAR_Rent_Amount,
         OTVTAR_Number_Incomes,
         OTVTAR_Income_From_Asset,
-        OTVTAR_Qualify_Low_Incom,
-        OTVTAR_Qualify_VeryLow_I,
+        OTVTAR_Qualify_Low_Income,
+        OTVTAR_Qualify_VeryLow_Income,
         OTVTAR_Low_Income_Code,
         OTVTAR_VeryLow_Income_Co,
         OTVTAR_MedAllowance_Amt,
@@ -432,7 +430,7 @@ BEGIN
         OTVTAR_WO_Amount,
         OTVTAR_Security_Refund,
         OTVTAR_SecurityCheckNO,
-        OTVTAR_ChargeOƯ_Date,
+        OTVTAR_ChargeOut_Date,
         OTVTAR_Collection_Expens,
         OTVTAR_Collection_Amount,
         OTVTAR_Collection_Orig_A,
@@ -466,7 +464,7 @@ BEGIN
         OTVTAR_Veteran,
         OTVTAR_Elig_Income,
         OTVTAR_DC_Number,
-        DEX_ROW_ID,
+        DEX_ROW_ID
     )
     VALUES
     (
@@ -510,7 +508,7 @@ BEGIN
         @OTVTAR_Wages,
         @OTVTAR_Benefits_SS,
         @OTVTAR_Benefits_SSI,
-        @OTVTAR_Benefits_VA ,
+        @OTVTAR_Benefits_VA,
         @OTVTAR_Benefits_Other,
         @OTVTAR_Welfare_AFDC,
         @OTVTAR_Welfare_OAA,
@@ -541,8 +539,8 @@ BEGIN
         @OTVTAR_Rent_Amount,
         @OTVTAR_Number_Incomes,
         @OTVTAR_Income_From_Asset,
-        @OTVTAR_Qualify_Low_Incom,
-        @OTVTAR_Qualify_VeryLow_I,
+        @OTVTAR_Qualify_Low_Income,
+        @OTVTAR_Qualify_VeryLow_Income,
         @OTVTAR_Low_Income_Code,
         @OTVTAR_VeryLow_Income_Co,
         @OTVTAR_MedAllowance_Amt,
@@ -574,7 +572,7 @@ BEGIN
         @OTVTAR_WO_Amount,
         @OTVTAR_Security_Refund,
         @OTVTAR_SecurityCheckNO,
-        @OTVTAR_ChargeOƯ_Date,
+        @OTVTAR_ChargeOut_Date,
         @OTVTAR_Collection_Expens,
         @OTVTAR_Collection_Amount,
         @OTVTAR_Collection_Orig_A,
@@ -601,7 +599,7 @@ BEGIN
         @OTVTAR_ACH_RentAmount,
         @OTVTAR_ACH_RoutingNumber,
         @OTVTAR_ACH_StartDate,
-        @NOTEINDX,
+        NOTEINDX,
         @OTVTAR_Maintenance_Amt,
         @OTVTAR_Payment_Agreement,
         @OTVTAR_Agreement_Desc,
@@ -609,8 +607,8 @@ BEGIN
         @OTVTAR_Elig_Income,
         @OTVTAR_DC_Number,
         @DEX_ROW_ID
-    );
-END;
+    )
+END
 GO
 CREATE PROCEDURE sp_Select_TAR_Tenant
     @OTVTAR_Program_ID CHAR(15),
