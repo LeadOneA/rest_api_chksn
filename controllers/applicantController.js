@@ -1,10 +1,20 @@
 const { getPool, sql } = require('../db');
 
 async function addApplicant(req, res) {
-  const data = req.body;
+  let data = req.body;
 
+  //VALIDATE IS ARRAY
+  if(typeof(data) == "object" || typeof(data) == "Object"){
+    if(!Array.isArray(data)){
+      data = [data];
+    }
+  }else if(typeof(data) == "string" || typeof(data) == "String"){
+    res.status(500).json({ error: 'the body is string. Expected result: JSON(object)' });
+  }
   try {
-    const pool = getPool();
+    await Promise.all(
+    data.map(async (data) => {
+      const pool = getPool();
     const request = pool.request();
     request
       .input('OTVTAR_Eligibility_Code', sql.SmallInt, data.OTVTAR_Eligibility_Code)
@@ -81,12 +91,14 @@ async function addApplicant(req, res) {
       .input('OTVTAR_Removal_Code', sql.SmallInt, data.OTVTAR_Removal_Code)
       .input('OTVTAR_Removal_Date', sql.DateTime, data.OTVTAR_Removal_Date);
 
-    //STORE PROCEDURE
-    const result = await request.execute('sp_Insert_TAR_Applicant');
+      //STORE PROCEDURE
+      const result = await request.execute('sp_Insert_TAR_Applicant');
+      console.log("foreach result", result)
+    }));
 
     res.status(201).json({ message: 'Applicant added successfully'});
   } catch (err) {
-    console.error('Error INSERT APPLICANT:', err);
+    // console.error('Error INSERT APPLICANT:', err);
     //INSIDE THE DATABASE EXIST TRIGGER
     //WHERE IS THROW CUSTOM ERRORS FROM DATABASE
     let errorMessage = 'Error Unknow (applicant)';
