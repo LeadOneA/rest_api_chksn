@@ -14,8 +14,8 @@ GO
 
 CREATE TABLE TAR00201_TAR_Applicant_MSTR (
     OTVTAR_Eligibility_Code SMALLINT,
-    OTVTAR_Program_ID       CHAR(15) NOT NULL,
-    OTVTAR_Applicant_ID     CHAR(11) NOT NULL,
+    OTVTAR_Program_ID       CHAR(15),
+    OTVTAR_Applicant_ID     CHAR(11),
     OTVTAR_Time             DATETIME,
     OTVTAR_Date             DATETIME,
     OTVTAR_App_Last_Name    CHAR(21),
@@ -87,8 +87,6 @@ CREATE TABLE TAR00201_TAR_Applicant_MSTR (
     OTVTAR_Removal_Code     SMALLINT,
     OTVTAR_Removal_Date     DATETIME,
     DEX_ROW_ID              INT,
-    -- PRIMARY KEY ANC CLUSTERED
-    CONSTRAINT PK_TAR00201 PRIMARY KEY CLUSTERED (OTVTAR_Program_ID, OTVTAR_Applicant_ID)
 );
 GO
 
@@ -440,6 +438,28 @@ BEGIN
     WHERE OTVTAR_Program_ID = @OTVTAR_Program_ID AND OTVTAR_Applicant_ID = @OTVTAR_Applicant_ID;
 END;
 GO
+
+--SELECT STORE PROCEDURE
+CREATE OR ALTER PROCEDURE sp_Get_TAR_Applicant
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    SELECT 
+        OTVTAR_Eligibility_Code AS 'E-CODE',
+        OTVTAR_Time AS 'TIME',
+        OTVTAR_Date AS 'DATE',
+        OTVTAR_App_Last_Name AS 'LAST NAME',
+        OTVTAR_App_First_Name AS 'FIRST NAME',
+        OTVTAR_App_Middle_Name AS 'MIDDLE NAME',
+        OTVTAR_Sex AS 'SEX',
+        OTVTAR_Priority_Code AS 'PRIORITY CODE',
+        OTVTAR_Credit_Verified AS 'CREDIT VERIFIED',
+        OTVTAR_Total_Assets 'TOTAL ASSETS'
+    FROM TAR00201_TAR_Applicant_MSTR
+END;
+GO
+
 
 -- VALIDATE THE TRIGGER AND DELETE IF EXIST
 IF OBJECT_ID('trg_Validate_TAR_Applicant_Insert', 'TR') IS NOT NULL

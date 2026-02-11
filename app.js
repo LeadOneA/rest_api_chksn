@@ -19,6 +19,8 @@ const exphbs = require('express-handlebars');
 
 const applicantRoutes = require('./routes/applicants');
 const indexRoutes = require('./routes/index');
+const reportRoutes = require('./routes/report');
+const webFormProgram = require('./routes/web_form_program')
 const { connectToDb } = require('./db');
 
 
@@ -52,3 +54,5 @@ process.exit(1);
 // Routes
 app.use('/api/applicants', applicantRoutes);
 app.use('/', indexRoutes);
+app.use('/api/report', reportRoutes);
+app.use('/api/webform', webFormProgram)
