@@ -11,12 +11,10 @@ The following dependencies are required for the application:
 | Package | Version | Purpose |
 |---------|---------|---------|
 | `axios` | ^1.12.0 | HTTP client for external requests |
-| `bcryptjs` | ^3.0.2 | Password hashing |
 | `cors` | ^2.8.5 | Cross-Origin Resource Sharing |
 | `dotenv` | ^17.2.2 | Environment variable management |
 | `express` | ^5.1.0 | Web server framework |
 | `express-handlebars` | ^8.0.3 | Template rendering engine |
-| `jsonwebtoken` | ^9.0.2 | JWT-based authentication |
 | `mssql` | ^11.0.1 | SQL Server database connection |
 
 ---
@@ -26,9 +24,15 @@ The following dependencies are required for the application:
 Install dependencies using **npm**:
 
 ```bash
-npm install axios bcryptjs cors dotenv express express-handlebars jsonwebtoken mssql
+npm install axios cors dotenv express express-handlebars mssql
 ```
 
+or
+
+install dependencies using 
+```bash 
+npm install 
+```
 
 This runs the server using nodemon (nodemon app.js), which automatically refreshes the service whenever changes are made, without needing to restart it manually.
 

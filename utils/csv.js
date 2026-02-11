@@ -1,3 +1,9 @@
+/*
+THIS SCRIPT IS MANAGED TO CREATE A CSV FILE
+DEPENDING ON JSON RECEIVED
+*/
+
+
 const fs = require("fs");
 const path = require("path");
 

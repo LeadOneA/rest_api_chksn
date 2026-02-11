@@ -1,3 +1,4 @@
+--APPLY CSV IMPORT
 BULK INSERT TAR00201
 FROM 'C:\Applicant_Data.csv'
 WITH (
