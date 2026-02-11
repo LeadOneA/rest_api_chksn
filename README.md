@@ -57,3 +57,57 @@ http://localhost:3000/
 to make the POST here is the fake data
 utlis > post_applicant.json
 POST - http://localhost:3000/api/applicants
+
+**CODE STRUCTURE**
+<br>chickasawnation<br>
+|&nbsp;&nbsp;&nbsp;.env<br>
+|&nbsp;&nbsp;&nbsp;.gitignore<br>
+|&nbsp;&nbsp;&nbsp;app.js<br>
+|&nbsp;&nbsp;&nbsp;chickasawnation_Applicant.sql<br>
+|&nbsp;&nbsp;&nbsp;chickasawnation_County.sql<br>
+|&nbsp;&nbsp;&nbsp;chickasawnation_Program.sql<br>
+|&nbsp;&nbsp;&nbsp;chickasawnation_TAR00201.sql<br>
+|&nbsp;&nbsp;&nbsp;chickasawnation_Tenant.sql<br>
+|&nbsp;&nbsp;&nbsp;chickasawnation_Tribal.sql<br>
+|&nbsp;&nbsp;&nbsp;db.js<br>
+|&nbsp;&nbsp;&nbsp;package-lock.json<br>
+|&nbsp;&nbsp;&nbsp;package.json<br>
+|&nbsp;&nbsp;&nbsp;README.md<br>
+|   
++---controllers<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;applicantController.js<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reportController.js<br>
+|       
++---exports<br>
++---middlewares<br>
++---public<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;css<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|---styles.css<br><br>
+|           
++---routes<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;applicants.js<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.js<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;report.js<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;web_form_program.js<br><br>
+|       
++---utils<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;csv.js<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;post_applicant.json<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;utilities_databases.sql<br><br>
+|       
++---views<br>
+&nbsp;&nbsp;&nbsp;layouts<br>
+&nbsp;&nbsp;&nbsp;|---home.handlebars<br>
+&nbsp;&nbsp;&nbsp;|---main.handlebars<br>
+
+**HOW IS WORKING?**
+
+The file called app.js contain the configuration to deploy the REST API.
+This file call the routes published
+
+The routes working are:
+- 
+- applicant
+- report (this script until now is not working due to that Adam moved to on hold the project)
+
+About the views, those scripts are not required.
