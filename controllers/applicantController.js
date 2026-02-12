@@ -21,7 +21,7 @@ async function addApplicant(req, res) {
     if (isEmpty(item.lastName)) {
       return res.status(500).json({ error: 'missing parameter: lastName' });
     }
-    if (isEmpty(item.programs) && isEmpty(item.OTVTAR_Program_ID)) {
+    if (isEmpty(item.program) && isEmpty(item.OTVTAR_Program_ID)) {
       return res.status(500).json({ error: 'missing parameter: programs' });
     }
   }
@@ -33,7 +33,7 @@ async function addApplicant(req, res) {
         const request = pool.request();
         request
           .input('OTVTAR_Eligibility_Code', sql.SmallInt, data.OTVTAR_Eligibility_Code)
-          .input('OTVTAR_Program_ID', sql.Char(15), data.OTVTAR_Program_ID || data.programs)
+          .input('OTVTAR_Program_ID', sql.Char(15), data.OTVTAR_Program_ID || data.program)
           .input('OTVTAR_Applicant_ID', sql.Char(11), data.OTVTAR_Applicant_ID)
           .input('OTVTAR_Time', sql.DateTime, data.OTVTAR_Time)
           .input('OTVTAR_Date', sql.DateTime, data.OTVTAR_Date)
@@ -41,16 +41,16 @@ async function addApplicant(req, res) {
           .input('OTVTAR_App_First_Name', sql.Char(21), data.OTVTAR_App_First_Name || data.firstName)
           .input('OTVTAR_App_Middle_Name', sql.Char(21), data.OTVTAR_App_Middle_Name)
           .input('OTVTAR_Cur_Name', sql.Char(31), data.OTVTAR_Cur_Name)
-          .input('OTVTAR_Cur_Address1', sql.Char(31), data.OTVTAR_Cur_Address1)
-          .input('OTVTAR_Cur_Address2', sql.Char(31), data.OTVTAR_Cur_Address2)
-          .input('OTVTAR_Cur_City', sql.Char(21), data.OTVTAR_Cur_City)
+          .input('OTVTAR_Cur_Address1', sql.Char(31), data.OTVTAR_Cur_Address1 || data.curAddress1)
+          .input('OTVTAR_Cur_Address2', sql.Char(31), data.OTVTAR_Cur_Address2 || data.curAddress2)
+          .input('OTVTAR_Cur_City', sql.Char(21), data.OTVTAR_Cur_City || data.curCity)
           .input('OTVTAR_Cur_CountyCode', sql.Char(3), data.OTVTAR_Cur_CountyCode)
-          .input('OTVTAR_Cur_State', sql.Char(3), data.OTVTAR_Cur_State)
-          .input('OTVTAR_Cur_ZipCode', sql.Char(11), data.OTVTAR_Cur_ZipCode)
+          .input('OTVTAR_Cur_State', sql.Char(3), data.OTVTAR_Cur_State || data.curState)
+          .input('OTVTAR_Cur_ZipCode', sql.Char(11), data.OTVTAR_Cur_ZipCode || data.curZip)
           .input('OTVTAR_Cur_Telephone', sql.Char(11), data.OTVTAR_Cur_Telephone)
           .input('OTVTAR_Perm_Name', sql.Char(31), data.OTVTAR_Perm_Name)
-          .input('OTVTAR_Perm_Address1', sql.Char(31), data.OTVTAR_Perm_Address1)
-          .input('OTVTAR_Perm_Address2', sql.Char(31), data.OTVTAR_Perm_Address2)
+          .input('OTVTAR_Perm_Address1', sql.Char(31), data.OTVTAR_Perm_Address1 || data.permAddress1)
+          .input('OTVTAR_Perm_Address2', sql.Char(31), data.OTVTAR_Perm_Address2 || data.permAddress2)
           .input('OTVTAR_Perm_City', sql.Char(21), data.OTVTAR_Perm_City)
           .input('OTVTAR_Perm_State', sql.Char(3), data.OTVTAR_Perm_State)
           .input('OTVTAR_Perm_ZipCode', sql.Char(11), data.OTVTAR_Perm_ZipCode)
@@ -163,7 +163,6 @@ async function editApplicant(req, res) {
         request
           .input('OTVTAR_Eligibility_Code', sql.SmallInt, item.OTVTAR_Eligibility_Code)
           .input('OTVTAR_Program_ID', sql.Char(15), item.OTVTAR_Program_ID)
-          // ... resto de tus inputs
           .input('OTVTAR_Removal_Date', sql.DateTime, item.OTVTAR_Removal_Date);
           
         return await request.execute('sp_Update_TAR_Applicant');
